@@ -1,4 +1,5 @@
 # Logs
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -7,10 +8,27 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
+.next
+out
+
+# Environment variables
+.env
+.env.*
 *.local
+
+# Cache / tooling
+.cache
+.turbo
+
+# Hosting
+.vercel
+.netlify
 
 # Editor directories and files
 .vscode/*
