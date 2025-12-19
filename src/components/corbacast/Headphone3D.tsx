@@ -158,7 +158,7 @@ const Headphone3D = () => {
 
     // --- ANIMATION ---
     const clock = new THREE.Clock();
-    let animationId: number;
+    let animationId = 0;
 
     const animate = () => {
       animationId = requestAnimationFrame(animate);
