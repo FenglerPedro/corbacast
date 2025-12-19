@@ -1,6 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { Cross, Heart, Users } from "lucide-react";
 
 const AboutSection = () => {
@@ -23,10 +26,11 @@ const AboutSection = () => {
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent z-10" />
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&h=600&fit=crop"
                 alt="Estúdio de podcast"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
             </div>
             {/* Floating badge */}

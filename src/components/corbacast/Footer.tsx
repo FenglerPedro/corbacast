@@ -1,7 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Instagram, Youtube, Heart, Mic, Home, Users, Headphones, HelpCircle, MessageSquare } from "lucide-react";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 
@@ -48,7 +50,7 @@ const Footer = () => {
             </div>
 
             <h3 className="font-display text-3xl md:text-4xl uppercase mb-4 text-black">
-              <span className="text-primary">Corbã</span> Cast
+              <span className="text-primary">Corbã Cast</span>
             </h3>
 
             <p className="text-zinc-600 max-w-md mx-auto mb-8 font-medium">
@@ -62,7 +64,7 @@ const Footer = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.label}
-                to={link.href}
+                href={link.href}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-100 hover:bg-primary/10 hover:text-primary border border-zinc-200 hover:border-primary/30 transition-all text-zinc-700 font-medium"
               >
                 <link.icon className="w-4 h-4" />

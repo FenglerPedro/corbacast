@@ -1,6 +1,9 @@
+"use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { Video, Wifi } from "lucide-react";
 
 const ComingSoonSection = () => {
@@ -10,26 +13,27 @@ const ComingSoonSection = () => {
     target: ref,
     offset: ["start end", "end start"],
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
     <section ref={ref} className="relative py-32 md:py-48 overflow-hidden">
       {/* Parallax background */}
-      <motion.div 
+      <motion.div
         style={{ y }}
         className="absolute inset-0"
       >
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1920&h=1080&fit=crop"
           alt="Background"
-          className="w-full h-[120%] object-cover"
+          fill
+          className="object-cover"
         />
       </motion.div>
-      
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
-      
+
       <div className="section-container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -46,16 +50,16 @@ const ComingSoonSection = () => {
             <Wifi className="w-5 h-5 text-primary animate-pulse" />
             <span className="text-primary font-medium">Em Breve</span>
           </motion.div>
-          
+
           <h2 className="font-display text-4xl md:text-6xl lg:text-7xl uppercase mb-6 leading-tight">
             Ao Vivo <span className="gradient-text">Online</span>
           </h2>
-          
+
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            Em breve você poderá acompanhar gravações ao vivo, participar de lives 
+            Em breve você poderá acompanhar gravações ao vivo, participar de lives
             exclusivas e interagir em tempo real com a equipe do Corbã Cast.
           </p>
-          
+
           <div className="flex flex-wrap justify-center gap-6">
             <div className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-xl">
               <Video className="w-5 h-5 text-primary" />

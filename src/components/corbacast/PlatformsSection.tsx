@@ -1,6 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import spotifyLogo from "@/assets/spotify-logo.png";
 import youtubeLogo from "@/assets/youtube-logo.png";
 import googleMeetLogo from "@/assets/google-meet-logo.png";
@@ -74,7 +77,7 @@ const PlatformsSection = () => {
 
               <div className="w-14 h-14 rounded-xl bg-card group-hover:bg-gray-100 flex items-center justify-center mb-4 
                 transition-colors duration-300 overflow-hidden relative z-10">
-                <img src={platform.logo} alt={platform.name} className="w-10 h-10 object-contain" />
+                <Image src={platform.logo} alt={platform.name} className="w-10 h-10 object-contain" />
               </div>
               <h3 className="font-display text-xl text-foreground group-hover:text-red-600 mb-2 transition-colors duration-300 relative z-10">
                 {platform.name}

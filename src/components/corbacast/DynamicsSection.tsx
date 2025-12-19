@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -33,7 +35,7 @@ const DynamicsSection = () => {
   return (
     <section ref={ref} className="py-24 md:py-32 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-background" />
-      
+
       <div className="section-container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -70,7 +72,7 @@ const DynamicsSection = () => {
               >
                 <item.icon className="w-10 h-10 text-primary" />
               </motion.div>
-              
+
               <h3 className="font-display text-xl md:text-2xl text-foreground mb-3 group-hover:text-primary transition-colors">
                 {item.title}
               </h3>

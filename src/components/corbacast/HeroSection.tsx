@@ -1,10 +1,26 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Suspense, lazy, useRef, useState } from "react";
+import Link from "next/link";
+import { useRef, useState } from "react";
+import Image from "next/image";
 import heroBg from "@/assets/hero-bg.png";
 import { Headphones, Play, Pause } from "lucide-react";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { ClientOnly } from "@/components/ui/client-only";
 
-const Headphone3D = lazy(() => import("./Headphone3D"));
+const Headphone3D = dynamic(
+  () => import("./Headphone3D").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    )
+  }
+);
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -24,10 +40,15 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative min-h-screen flex pt-8 md:pt-16 overflow-hidden">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
+      <div className="absolute inset-0">
+        <Image
+          src={heroBg}
+          alt="Hero Background"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </div>
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-background/70" />
       <div className="section-container pb-12 md:pb-20 w-full relative z-10">
@@ -116,7 +137,7 @@ const HeroSection = () => {
               className="mt-8 flex flex-col sm:flex-row gap-4"
             >
               <Link
-                to="/episodios"
+                href="/episodios"
                 className="px-8 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors whitespace-nowrap text-center inline-flex items-center justify-center"
               >
                 Ver episódios
@@ -175,20 +196,14 @@ const HeroSection = () => {
                 className="absolute inset-0 m-auto w-[320px] h-[320px] md:w-[500px] md:h-[500px] bg-primary/10 rounded-3xl -rotate-6"
               />
 
-              {/* 3D Headphone */}
+              {/* 3D Headphone Section */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="absolute inset-0 z-10"
               >
-                <Suspense fallback={
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-                  </div>
-                }>
-                  <Headphone3D />
-                </Suspense>
+                <Headphone3D />
               </motion.div>
             </div>
 

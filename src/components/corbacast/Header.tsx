@@ -1,9 +1,13 @@
+"use client";
+
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { useScroll } from '@/components/ui/use-scroll';
+import Image from 'next/image';
 
 import logo from "@/assets/logo-corba.png";
 
@@ -18,7 +22,7 @@ const navItems = [
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
-  const location = useLocation();
+  const pathname = usePathname();
 
   React.useEffect(() => {
     if (open) {
@@ -34,9 +38,9 @@ const Header = () => {
 
   const isActive = (href: string) => {
     if (href === '/') {
-      return location.pathname === '/';
+      return pathname === '/';
     }
-    return location.pathname.startsWith(href);
+    return pathname?.startsWith(href) ?? false;
   };
 
   return (
@@ -58,8 +62,8 @@ const Header = () => {
           },
         )}
       >
-        <Link to="/" className="font-display text-xl font-bold text-primary flex items-center">
-          <img src={logo} alt="Corbã Cast" className="h-12 w-auto object-contain" />
+        <Link href="/" className="font-display text-xl font-bold text-primary flex items-center">
+          <Image src={logo} alt="Corbã Cast" className="h-12 w-auto object-contain" />
         </Link>
         <div className="hidden items-center gap-2 md:flex">
           {navItems.map((item) => (
@@ -69,7 +73,7 @@ const Header = () => {
                 buttonVariants({ variant: 'ghost' }),
                 isActive(item.href) && 'bg-primary/10 text-primary'
               )}
-              to={item.href}
+              href={item.href}
             >
               {item.label}
             </Link>
@@ -104,7 +108,7 @@ const Header = () => {
                   }),
                   isActive(item.href) && 'bg-primary/10 text-primary'
                 )}
-                to={item.href}
+                href={item.href}
                 onClick={() => setOpen(false)}
               >
                 {item.label}

@@ -1,6 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import Image from "next/image";
 import flagImage from "@/assets/flag-australia.webp";
 import missionaryPhoto from "@/assets/missionary-photo.png";
 import { Particles } from "@/components/ui/particles";
@@ -48,7 +51,7 @@ const OurHistorySection = () => {
           >
             {/* Flag image - rectangular */}
             <div className="relative">
-              <img
+              <Image
                 src={flagImage}
                 alt="Bandeira representando as nações"
                 className="w-80 h-52 md:w-[480px] md:h-80 object-cover rounded-lg shadow-lg animate-flag-wave"
@@ -56,7 +59,7 @@ const OurHistorySection = () => {
 
               {/* Circular photo - overlapping bottom-left */}
               <div className="absolute -bottom-8 left-4 md:-bottom-12 md:-left-12">
-                <img
+                <Image
                   src={missionaryPhoto}
                   alt="Missionário"
                   className="w-24 h-24 md:w-44 md:h-44 rounded-full object-cover border-4 border-white shadow-xl"
