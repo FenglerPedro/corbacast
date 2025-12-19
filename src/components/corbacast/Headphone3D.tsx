@@ -122,14 +122,21 @@ const Headphone3D = () => {
       const accentRingGeom = new THREE.TorusGeometry(0.5, 0.02, 16, 32);
       const accentRing = new THREE.Mesh(accentRingGeom, materials.accent);
       accentRing.rotation.y = Math.PI / 2;
-      accentRing.position.x = side * -0.21;
+      accentRing.position.x = side * 0.21; // Move to outside
       cupGroup.add(accentRing);
 
       const cushionGeom = new THREE.TorusGeometry(0.55, 0.2, 16, 64);
       const cushion = new THREE.Mesh(cushionGeom, materials.cushion);
       cushion.rotation.y = Math.PI / 2;
-      cushion.position.x = side * 0.2;
+      cushion.position.x = side * -0.2; // Move to inside
       cupGroup.add(cushion);
+
+      // Inner mesh plate for realism
+      const innerMeshGeom = new THREE.CylinderGeometry(0.5, 0.5, 0.05, 32);
+      const innerMesh = new THREE.Mesh(innerMeshGeom, new THREE.MeshStandardMaterial({ color: "#000000" }));
+      innerMesh.rotation.z = Math.PI / 2;
+      innerMesh.position.x = side * -0.15;
+      cupGroup.add(innerMesh);
 
       sideGroup.add(cupGroup);
       return sideGroup;
