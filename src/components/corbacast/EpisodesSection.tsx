@@ -103,7 +103,7 @@ const EpisodesSection = () => {
             Conteúdo
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-4">
-            Nossos <span className="gradient-text">Episódios</span>
+            Episódios do <span className="gradient-text">YouTube</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Confira o que está por vir. Episódios preparados com carinho para edificar sua fé.
