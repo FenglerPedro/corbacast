@@ -26,9 +26,11 @@ const Headphone3D = () => {
     // Clear any previous elements to prevent doubling
     containerRef.current.innerHTML = "";
     containerRef.current.appendChild(renderer.domElement);
+    renderer.domElement.style.touchAction = 'pan-y';
 
     // --- CONTROLS ---
     const controls = new OrbitControls(camera, renderer.domElement);
+    renderer.domElement.style.touchAction = 'pan-y';
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.autoRotate = true;
@@ -173,6 +175,29 @@ const Headphone3D = () => {
 
     animate();
 
+    // --- RAYCASTER FOR INTERACTION ---
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    const handlePointerDown = (event: PointerEvent) => {
+      // Calculate pointer position in normalized device coordinates (-1 to +1)
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Update the picking ray with the camera and pointer position
+      raycaster.setFromCamera(pointer, camera);
+
+      // Calculate objects intersecting the picking ray
+      const intersects = raycaster.intersectObject(headphoneGroup, true);
+
+      // Enable controls only if we clicked on the headphone
+      controls.enabled = intersects.length > 0;
+    };
+
+    // Use capture: true to ensure this runs before OrbitControls
+    renderer.domElement.addEventListener('pointerdown', handlePointerDown, { capture: true });
+
     // --- RESIZE HANDLER ---
     const handleResize = () => {
       if (!containerRef.current) return;
@@ -188,6 +213,7 @@ const Headphone3D = () => {
     // --- CLEANUP ---
     return () => {
       window.removeEventListener("resize", handleResize);
+      renderer.domElement.removeEventListener('pointerdown', handlePointerDown, { capture: true });
       cancelAnimationFrame(animationId);
       if (containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
@@ -202,7 +228,7 @@ const Headphone3D = () => {
   return (
     <div
       ref={containerRef}
-      className="w-full h-full min-h-[400px] flex items-center justify-center relative cursor-grab active:cursor-grabbing touch-none"
+      className="w-full h-full min-h-[400px] flex items-center justify-center relative cursor-grab active:cursor-grabbing touch-pan-y"
     />
   );
 };
